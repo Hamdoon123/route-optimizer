@@ -38,11 +38,6 @@ def load_graph(lat, lon):
 
 graph = load_graph(depot_lat, depot_lon)
 
-else:
-    G = st.session_state.graph
-
-depot_node = ox.distance.nearest_nodes(G, depot_lon, depot_lat)
-
 # Process delivery points
 if "deliveries" in st.session_state and st.session_state["deliveries"]:
     deliveries = st.session_state.deliveries
