@@ -32,15 +32,12 @@ with st.sidebar:
             st.session_state.setdefault("deliveries", []).append((lat, lon, weight, (time_start * 60, time_end * 60)))
 
 # Load road network
-st.info("Loading Muscat road network...")
-osm_file = "muscat_road_network.graphml"
-if "graph" not in st.session_state:
-    if os.path.exists(osm_file):
-        G = ox.load_graphml(osm_file)
-    else:
-        G = ox.graph_from_point((depot_lat, depot_lon), dist=25000, network_type='drive')
-        ox.save_graphml(G, osm_file)
-    st.session_state.graph = G
+@st.cache_resource
+def load_graph(lat, lon):
+    return ox.graph_from_point((lat, lon), dist=25000, network_type='drive')
+
+graph = load_graph(depot_lat, depot_lon)
+
 else:
     G = st.session_state.graph
 
