@@ -41,7 +41,7 @@ graph = load_graph(depot_lat, depot_lon)
 # Process delivery points
 if "deliveries" in st.session_state and st.session_state["deliveries"]:
     deliveries = st.session_state.deliveries
-    node_ids = [ox.distance.nearest_nodes(G, lon, lat) for lat, lon, _, _ in deliveries]
+    node_ids = [ox.distance.nearest_nodes(graph, lon, lat) for lat, lon, _, _ in deliveries]
     weights = [w for _, _, w, _ in deliveries]
     time_windows = [tw for _, _, _, tw in deliveries]
 
